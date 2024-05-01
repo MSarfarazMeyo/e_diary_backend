@@ -42,13 +42,6 @@ const teacherSchema = new mongoose.Schema({
       ref: "classes",
     },
   ],
-  section: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "sections",
-    },
-  ],
-
   subject: {
     type: [String], // Assuming each tag is a string
     default: [],

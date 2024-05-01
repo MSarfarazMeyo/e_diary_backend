@@ -5,44 +5,43 @@ var router = express.Router();
 
 // auth
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res, next) => {
   try {
     const response = await CREATE_ADMIN(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const response = await LOGIN_ADMIN(req);
     setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", async (req, res, next) => {
   try {
     const response = await UPDATE_BY_ID(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
     console.log(error);
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
 router.patch(
   "/update/password/:id",
 
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const response = await UPDATE_BY_ID(req);
-      res.send(response);
+      setResponse(res, response);
     } catch (error) {
-      console.log(error);
-      setResponse(res, { type: "Error", data: error.stack });
+      return next(error);
     }
   }
 );

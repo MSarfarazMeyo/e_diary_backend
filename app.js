@@ -20,10 +20,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/admin", adminRouter);
-app.use("/admin/class", classesRouter);
-app.use("/admin/teacher", teachersRouter);
-app.use("/admin/student", studentRouter);
-app.use("/admin/parent", parentRouter);
+app.use("/class", classesRouter);
+app.use("/teacher", teachersRouter);
+app.use("/student", studentRouter);
+app.use("/parent", parentRouter);
 app.use("/edairy", e_dairyRouter);
 
 // static assets

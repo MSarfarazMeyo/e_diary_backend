@@ -13,59 +13,57 @@ var router = express.Router();
 
 // auth
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const response = await CREATE_ONE(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    console.log(error);
-
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const response = await LOGIN(req);
     setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const response = await FIND_ALL(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const response = await FIND_ONE(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", async (req, res, next) => {
   try {
     const response = await UPDATE_BY_ID(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const response = await DELETE_BY_ID(req);
-    res.send(response);
+    setResponse(res, response);
   } catch (error) {
-    setResponse(res, { type: "Error", data: error.stack });
+    return next(error);
   }
 });
 

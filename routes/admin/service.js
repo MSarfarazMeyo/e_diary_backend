@@ -60,8 +60,6 @@ module.exports = {
         data: { ...account, accessToken: generarteToken(user) },
       };
     } catch (error) {
-      console.log("log", error);
-
       throw error;
     }
   },

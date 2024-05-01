@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 
 const edairySchema = new mongoose.Schema({
-  class: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "classes",
+  subject: {
+    type: String,
   },
   comments: {
     type: [
       {
         comment: { type: String },
-        role: { type: String },
-        name: { type: String },
+        teacher: { type: String },
+        parent: { type: String },
         date: { type: String },
       },
     ],

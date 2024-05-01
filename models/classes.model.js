@@ -28,7 +28,8 @@ const classesSchema = new mongoose.Schema({
     ],
   },
   subject: {
-    type: [{}],
+    type: [String], // Assuming each tag is a string
+    default: [],
   },
 
   attendance: {
@@ -38,6 +39,7 @@ const classesSchema = new mongoose.Schema({
   incharge: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "teachers",
+    default: null, //
   },
 });
 
