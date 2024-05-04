@@ -36,15 +36,9 @@ module.exports = {
   LOGIN: async ({ body }) => {
     try {
       const reqData = body;
-      const user = await TEACHER_MODEL.findOne({ email: reqData.email })
-        .populate("class")
-        .populate({
-          path: "section",
-          populate: {
-            path: "timeTable", // Assuming "timetable" is the field linking to the timetable model
-          },
-        })
-        .populate("subject");
+      const user = await TEACHER_MODEL.findOne({
+        email: reqData.email,
+      }).populate("assigned.class");
 
       if (!user) {
         return { type: "bad", message: `Invalid email or password!` };
@@ -75,16 +69,9 @@ module.exports = {
   FIND_ONE: async ({ params }) => {
     try {
       const { id } = params;
-      const data = await TEACHER_MODEL.findOne({ _id: id })
-        .populate("class")
-        .populate({
-          path: "section",
-          populate: {
-            path: "timeTable", // Assuming "timetable" is the field linking to the timetable model
-          },
-        })
-
-        .populate("subject");
+      const data = await TEACHER_MODEL.findOne({ _id: id }).populate(
+        "assigned.class"
+      );
 
       if (data) return { type: "success", message: `data found`, data: data };
 
@@ -97,15 +84,7 @@ module.exports = {
 
   FIND_ALL: async () => {
     try {
-      const data = await TEACHER_MODEL.find({})
-        .populate("class")
-        .populate({
-          path: "section",
-          populate: {
-            path: "timeTable", // Assuming "timetable" is the field linking to the timetable model
-          },
-        })
-        .populate("subject");
+      const data = await TEACHER_MODEL.find({}).populate("assigned.class");
 
       if (data.length >= 1)
         return { type: "success", message: `data found`, data: data };

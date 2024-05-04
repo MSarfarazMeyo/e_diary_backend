@@ -64,8 +64,8 @@ module.exports = {
   FIND_ALL: async (req) => {
     try {
       let filter = {};
-      if (req.query && req.query?.section) {
-        filter.section = req.query.section;
+      if (req.query && req.query?.class) {
+        filter.class = req.query.class;
       }
 
       if (req.query && req.query?.parent) {
@@ -74,7 +74,6 @@ module.exports = {
 
       const data = await STUDENT_MODEL.find(filter)
         .populate("class")
-        .populate("section")
         .populate("parent");
 
       if (data?.length >= 1)

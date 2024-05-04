@@ -36,17 +36,19 @@ const teacherSchema = new mongoose.Schema({
     enum: ["parent", "admin", "teacher", "student"],
     default: "teacher",
   },
-  class: [
+
+  assigned: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "classes",
+      class: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "classes",
+      },
+      subject: {
+        type: [String], // Assuming each tag is a string
+        default: [],
+      },
     },
   ],
-  subject: {
-    type: [String], // Assuming each tag is a string
-    default: [],
-  },
-
   createdAt: {
     type: Date,
     default: new Date(),

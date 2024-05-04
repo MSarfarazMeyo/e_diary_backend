@@ -39,7 +39,6 @@ module.exports = {
       }
       const data = await E_DAIRY_MODEL.find(filter)
         .populate("class")
-        .populate("section")
         .populate("subject");
 
       if (data.length >= 1)

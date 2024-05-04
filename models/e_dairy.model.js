@@ -4,6 +4,10 @@ const edairySchema = new mongoose.Schema({
   subject: {
     type: String,
   },
+  class: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "classes",
+  },
   comments: {
     type: [
       {
