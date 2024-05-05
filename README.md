@@ -1,10 +1,4 @@
-# FITM-APIs
 
-This project contains all the EDiary FYP
-
-To setup the project on local you need the below mentioned items to be there
-
-## _Pre Requisites_
 
 Node 18+
 MongoDB
