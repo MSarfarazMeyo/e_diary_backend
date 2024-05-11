@@ -98,7 +98,7 @@ module.exports = {
         body.password = await hashPassword(body?.password);
       }
 
-      const data = await PARENT_MODEL.findOneAndUpdate({ id: id }, body, {
+      const data = await PARENT_MODEL.findOneAndUpdate({ _id: id }, body, {
         new: true,
       });
       if (data)
@@ -112,7 +112,7 @@ module.exports = {
   DELETE_BY_ID: async ({ params }) => {
     try {
       const { id } = params;
-      const data = await PARENT_MODEL.findByIdAndDelete({ id: id });
+      const data = await PARENT_MODEL.findByIdAndDelete({ _id: id });
       return { type: "success", message: `class deleted`, data: [] };
     } catch (error) {
       throw error;

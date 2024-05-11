@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     default: "admin",
   },
   password: {
     type: String,
     required: true,
+  },
+
+  connectCubeId: {
+    type: String,
+    default: null,
   },
   email: {
     type: String,

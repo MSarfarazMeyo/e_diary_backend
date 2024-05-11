@@ -12,9 +12,19 @@ const edairySchema = new mongoose.Schema({
     type: [
       {
         comment: { type: String },
-        teacher: { type: String },
-        parent: { type: String },
         date: { type: String },
+        role: { type: String },
+        name: { type: String },
+        userId: { type: String },
+        profilePic: { type: String },
+        reply: {
+          comment: { type: String },
+          date: { type: String },
+          role: { type: String },
+          name: { type: String },
+          userId: { type: String },
+          profilePic: { type: String },
+        },
       },
     ],
     default: [],

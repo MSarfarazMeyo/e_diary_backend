@@ -25,7 +25,7 @@ const generarteToken = (user) => {
       id: user?.id,
       email: user.email,
       role: user.role,
-      username: user.username,
+      name: user.name,
     },
     process.env.JWT_SECRET_KEY,
     { expiresIn: "30d" }

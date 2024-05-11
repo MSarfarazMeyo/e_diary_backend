@@ -37,6 +37,11 @@ const teacherSchema = new mongoose.Schema({
     default: "teacher",
   },
 
+  connectCubeId: {
+    type: String,
+    default: null,
+  },
+
   assigned: [
     {
       class: {

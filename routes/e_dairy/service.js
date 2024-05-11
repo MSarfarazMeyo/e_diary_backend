@@ -37,6 +37,11 @@ module.exports = {
       if (query?.subject) {
         filter.subject = query?.subject;
       }
+
+      if (query?.class) {
+        filter.class = query?.class;
+      }
+
       const data = await E_DAIRY_MODEL.find(filter)
         .populate("class")
         .populate("subject");
@@ -44,7 +49,7 @@ module.exports = {
       if (data.length >= 1)
         return { type: "success", message: `data found`, data: data };
 
-      return { type: "bad", message: `No Data Available`, data: [] };
+      return { type: "success", message: `No Data Available`, data: [] };
     } catch (error) {
       console.log(error);
       throw error;
@@ -52,13 +57,9 @@ module.exports = {
   },
 
   UPDATE_BY_ID: async ({ params, body }) => {
-    console.log("working 2");
-
     try {
       const { id } = params;
       delete body.id;
-
-      console.log("body", body.data);
 
       const data = await E_DAIRY_MODEL.findOneAndUpdate(
         { _id: id },
@@ -68,7 +69,6 @@ module.exports = {
         }
       )
         .populate("class")
-        .populate("section")
         .populate("subject");
       if (data) return { type: "success", message: ` update`, data: data };
       return { type: "bad", message: `No Data Available` };

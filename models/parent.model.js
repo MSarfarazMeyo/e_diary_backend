@@ -10,6 +10,12 @@ const parentSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+
+  connectCubeId: {
+    type: String,
+    default: null,
+  },
+
   idCard: {
     type: String,
     required: true,

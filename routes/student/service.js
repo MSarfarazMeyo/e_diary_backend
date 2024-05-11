@@ -89,7 +89,7 @@ module.exports = {
   UPDATE_BY_ID: async ({ params, body }) => {
     try {
       const { id } = params;
-      const data = await STUDENT_MODEL.findOneAndUpdate({ id: id }, body, {
+      const data = await STUDENT_MODEL.findOneAndUpdate({ _id: id }, body, {
         new: true,
       });
       if (data) return { type: "success", message: `class update`, data: data };
@@ -102,7 +102,7 @@ module.exports = {
   DELETE_BY_ID: async ({ params }) => {
     try {
       const { id } = params;
-      const data = await STUDENT_MODEL.findByIdAndDelete({ id: id });
+      const data = await STUDENT_MODEL.findByIdAndDelete({ _id: id });
       return { type: "success", message: `student deleted`, data: [] };
     } catch (error) {
       throw error;
