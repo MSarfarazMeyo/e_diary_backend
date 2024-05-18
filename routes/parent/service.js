@@ -3,7 +3,7 @@ const {
   hashPassword,
   comparewPassword,
 } = require("../../helpers/user");
-const { PARENT_MODEL } = require("../../models");
+const { PARENT_MODEL, STUDENT_MODEL } = require("../../models");
 
 module.exports = {
   //...........................................................categories..................................................
@@ -58,6 +58,56 @@ module.exports = {
         type: "success",
         message: `loged In successfully`,
         data: { ...account, accessToken: generarteToken(user) },
+      };
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  LOGINTutionTeacher: async ({ body }) => {
+    try {
+      const reqData = body;
+
+      const user = await PARENT_MODEL.findOne({
+        "tutionTeacher.email": reqData.email,
+      });
+
+      if (!user) {
+        return { type: "bad", message: `User not found with this email` };
+      }
+
+      // Find the tutionTeacher with the provided email
+      const tutionTeacher = user?.tutionTeacher?.find(
+        (teacher) => teacher?.email === reqData?.email
+      );
+
+      if (!tutionTeacher) {
+        return {
+          type: "bad",
+          message: `Tution teacher not found with this email`,
+        };
+      }
+
+      const students = await STUDENT_MODEL.find({ parent: user.id })
+        .populate("class")
+        .populate("parent");
+
+      if (!students?.length)
+        return { type: "success", message: `data found`, data: [] };
+
+      const filteredStudents = students?.filter((child, index) =>
+        tutionTeacher?.assignedChildrens?.includes(child?.id)
+      );
+
+      const account = JSON.parse(JSON.stringify(tutionTeacher));
+
+      return {
+        type: "success",
+        message: `loged In successfully`,
+        data: {
+          user: { ...account, accessToken: generarteToken(tutionTeacher) },
+          childrens: filteredStudents,
+        },
       };
     } catch (error) {
       throw error;

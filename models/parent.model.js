@@ -11,6 +11,35 @@ const parentSchema = new mongoose.Schema({
     type: String,
   },
 
+  tutionTeacher: {
+    type: [
+      {
+        name: {
+          type: String,
+          required: false,
+        },
+
+        email: {
+          type: String,
+          required: false,
+        },
+
+        password: {
+          type: String,
+          required: false,
+        },
+        assignedChildrens: {
+          type: [String],
+        },
+        role: {
+          type: String,
+          required: false,
+        },
+      },
+    ],
+    default: [],
+  },
+
   connectCubeId: {
     type: String,
     default: null,

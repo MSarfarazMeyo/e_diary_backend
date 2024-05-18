@@ -22,7 +22,7 @@ const formateData = (data) => {
 const generarteToken = (user) => {
   return jwt.sign(
     {
-      id: user?.id,
+      id: user?.id || user?._id,
       email: user.email,
       role: user.role,
       name: user.name,

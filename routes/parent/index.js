@@ -8,6 +8,7 @@ const {
   DELETE_BY_ID,
   UPDATE_BY_ID,
   LOGIN,
+  LOGINTutionTeacher,
 } = require("./service");
 var router = express.Router();
 
@@ -25,6 +26,15 @@ router.post("/", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const response = await LOGIN(req);
+    setResponse(res, response);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.post("/tutionTeacher/login", async (req, res, next) => {
+  try {
+    const response = await LOGINTutionTeacher(req);
     setResponse(res, response);
   } catch (error) {
     return next(error);
