@@ -1,4 +1,6 @@
 const { ADMIN_MODEL } = require("../../models");
+const { uploadPicture } = require("../../helpers/uploadPictureMiddleware");
+const { fileRemover } = require("../../helpers/fileRemover");
 
 const {
   hashPassword,
@@ -6,9 +8,10 @@ const {
   comparewPassword,
 } = require("../../helpers/user");
 
+const upload = uploadPicture.single("image");
+
 module.exports = {
   //...........................................................auth..................................................
-
   CREATE_ADMIN: async ({ body }) => {
     try {
       const reqData = body;
@@ -80,6 +83,30 @@ module.exports = {
       if (data)
         return { type: "success", message: `Admin Updated`, data: data };
       return { type: "bad", message: `No Data Available` };
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  Upload_Image: async (req, res) => {
+    try {
+      const uploadResolver = (req, res) => {
+        return new Promise((resolve, reject) => {
+          upload(req, res, (err) => {
+            if (err) {
+              return reject(err);
+            }
+            resolve();
+          });
+        });
+      };
+      await uploadResolver(req, res);
+
+      return {
+        type: "success",
+        message: `Image Uploaded`,
+        data: req.file.filename,
+      };
     } catch (error) {
       throw error;
     }

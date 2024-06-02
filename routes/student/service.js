@@ -87,6 +87,9 @@ module.exports = {
   },
 
   UPDATE_BY_ID: async ({ params, body }) => {
+    console.log("params", params);
+    console.log("body", body);
+
     try {
       const { id } = params;
       const data = await STUDENT_MODEL.findOneAndUpdate({ _id: id }, body, {

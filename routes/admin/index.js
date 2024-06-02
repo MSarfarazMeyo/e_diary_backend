@@ -1,6 +1,11 @@
 var express = require("express");
 const { setResponse } = require("../../helpers/response.helper");
-const { CREATE_ADMIN, LOGIN_ADMIN, UPDATE_BY_ID } = require("./service");
+const {
+  CREATE_ADMIN,
+  LOGIN_ADMIN,
+  UPDATE_BY_ID,
+  Upload_Image,
+} = require("./service");
 var router = express.Router();
 
 // auth
@@ -45,5 +50,14 @@ router.patch(
     }
   }
 );
+
+router.post("/uploadImage", async (req, res, next) => {
+  try {
+    const response = await Upload_Image(req, res);
+    setResponse(res, response);
+  } catch (error) {
+    return next(error);
+  }
+});
 
 module.exports = router;

@@ -103,7 +103,7 @@ module.exports = {
       }
       const data = await TEACHER_MODEL.findOneAndUpdate({ _id: id }, body, {
         new: true,
-      });
+      }).populate("assigned.class");
       if (data) return { type: "success", message: `class update`, data: data };
       return { type: "bad", message: `No Data Available` };
     } catch (error) {
