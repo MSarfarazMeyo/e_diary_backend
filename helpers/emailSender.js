@@ -23,7 +23,7 @@ function sendEmail(recipients) {
     to: to, // List of recipients as a comma-separated string
     subject: "New Diary Created", // Subject line from .env
     text: "A new diary has been added to eDiary.", // Plain text body from .env
-    html: `<p>A new diary entry has been added to eDiary.</p>`, // HTML body from .env
+    html: `<p>A new diary entry has been Created.</p>`, // HTML body from .env
   };
 
   // Send mail
