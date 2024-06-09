@@ -1,16 +1,42 @@
-const { E_DAIRY_MODEL } = require("../../models");
+const sendEmail = require("../../helpers/emailSender");
+const { E_DAIRY_MODEL, PARENT_MODEL, ADMIN_MODEL } = require("../../models");
 
 module.exports = {
   //...........................................................categories..................................................
 
   CREATE_ONE: async ({ body }) => {
     try {
-      const section = await E_DAIRY_MODEL.create(body);
+      const eDiary = await E_DAIRY_MODEL.create(body);
+
+      const parents = await PARENT_MODEL.find({}, "email").lean();
+      const admins = await ADMIN_MODEL.find({}, "email").lean();
+
+      let parentEmails = [];
+      let adminEmails = [];
+
+      if (parents) {
+        parentEmails = parents
+          ?.filter((parent) => parent?.email) // Skip if no email
+          .map((parent) => parent?.email);
+      }
+
+      if (admins?.length) {
+        adminEmails = admins
+          .filter((admin) => admin?.email) // Skip if no email
+          .map((admin) => admin?.email);
+      }
+
+      const allEmails = [...parentEmails, ...adminEmails];
+
+      // Send email to all recipients if there are any emails
+      if (allEmails.length > 0) {
+        await sendEmail(allEmails);
+      }
 
       return {
         type: "success",
         message: `data created successfully`,
-        data: section,
+        data: eDiary,
       };
     } catch (error) {
       console.log("error", error);
